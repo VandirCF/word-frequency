@@ -29,3 +29,19 @@ export function summarize(rows) {
 
   return { total, unique: rows.length };
 }
+
+// Cuts text to at most `limit` UTF-16 units (the unit used by maxlength and
+// .length) without splitting a character made of two units, such as an emoji.
+export function truncateText(text, limit) {
+  let result = '';
+
+  for (const char of text) {
+    if (result.length + char.length > limit) {
+      break;
+    }
+
+    result += char;
+  }
+
+  return result;
+}

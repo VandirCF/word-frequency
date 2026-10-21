@@ -1,5 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import { countWords, isBlank, normalize, sortByFrequency, summarize } from '../src/wordFrequency.js';
+import {
+  countWords,
+  isBlank,
+  normalize,
+  sortByFrequency,
+  summarize,
+  truncateText,
+} from '../src/wordFrequency.js';
 
 describe('isBlank', () => {
   it('is true for an empty string', () => {
@@ -146,5 +153,28 @@ describe('summarize', () => {
     ];
 
     expect(summarize(rows)).toEqual({ total: 6, unique: 3 });
+  });
+});
+
+describe('truncateText', () => {
+  it('returns the text unchanged when it fits the limit', () => {
+    expect(truncateText('abc', 3)).toBe('abc');
+  });
+
+  it('cuts plain text at the limit', () => {
+    expect(truncateText('abcdef', 4)).toBe('abcd');
+  });
+
+  it('does not split a surrogate pair', () => {
+    // '😀' takes 2 UTF-16 units, so a limit of 3 keeps only one emoji and the 'a'.
+    expect(truncateText('😀😀a', 3)).toBe('😀');
+  });
+
+  it('keeps a surrogate pair that ends exactly at the limit', () => {
+    expect(truncateText('a😀b', 3)).toBe('a😀');
+  });
+
+  it('returns an empty string for a zero limit', () => {
+    expect(truncateText('abc', 0)).toBe('');
   });
 });

@@ -1,5 +1,5 @@
 import './styles/main.css';
-import { countWords, isBlank, sortByFrequency, summarize } from './wordFrequency.js';
+import { countWords, isBlank, sortByFrequency, summarize, truncateText } from './wordFrequency.js';
 import { removeStopwords } from './stopwords.js';
 import { toCsv } from './csv.js';
 import { fetchPageText } from './fetchPage.js';
@@ -122,7 +122,7 @@ urlForm.addEventListener('submit', async (event) => {
     const text = await fetchPageText(url);
     const limit = textInput.maxLength;
 
-    textInput.value = text.slice(0, limit);
+    textInput.value = truncateText(text, limit);
     updateCounter(charCounter, textInput.value.length, limit);
     clearError(errorMessage);
 
