@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Word Frequency</title>
+  </head>
+  <body>
+    <main>
+      <h1>Word Frequency</h1>
+
+      <form id="word-form">
+        <label for="text-input">Text to analyze</label>
+        <textarea
+          id="text-input"
+          name="text"
+          maxlength="2048"
+          rows="10"
+          aria-describedby="char-counter error-message"
+        ></textarea>
+        <p id="char-counter" class="counter">0 / 2048</p>
+        <p id="error-message" class="error" aria-live="polite" hidden></p>
+
+        <label class="checkbox">
+          <input type="checkbox" id="ignore-stopwords" />
+          Ignore common words
+        </label>
+
+        <div class="actions">
+          <button type="submit">Translate</button>
+          <button type="button" id="clear-button" class="secondary">Clear</button>
+        </div>
+      </form>
+
+      <form id="url-form" class="url-form" novalidate>
+        <label for="url-input">Or analyze a web page</label>
+        <div class="url-row">
+          <input
+            id="url-input"
+            name="url"
+            type="text"
+            inputmode="url"
+            placeholder="https://example.com"
+            aria-describedby="url-error url-notice"
+          />
+          <button type="submit" id="url-button" class="secondary">Analyze URL</button>
+        </div>
+        <p id="url-error" class="error" aria-live="polite" hidden></p>
+        <p id="url-notice" class="notice" aria-live="polite" hidden></p>
+      </form>
+
+      <div class="results-bar">
+        <p id="summary" class="summary" aria-live="polite" hidden></p>
+        <button type="button" id="export-button" class="secondary" disabled>Export CSV</button>
+      </div>
+
+      <div class="table-wrapper" tabindex="0">
+        <table>
+          <caption class="visually-hidden">Word frequency, most frequent first</caption>
+          <thead>
+            <tr>
+              <th scope="col">Word</th>
+              <th scope="col" class="numeric">Occurrences</th>
+            </tr>
+          </thead>
+          <tbody id="frequency-body">
+            <tr>
+              <td colspan="2">No analysis yet.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <section id="chart-section" class="chart-section" hidden>
+        <h2>Top words</h2>
+        <div class="chart-wrapper">
+          <canvas id="frequency-chart" role="img" aria-label="Bar chart of the most frequent words"></canvas>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
