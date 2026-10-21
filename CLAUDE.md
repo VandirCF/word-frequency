@@ -104,7 +104,8 @@ Trabalhe uma fase por vez. Ao concluir uma fase, marque-a aqui com `[x]`.
 - [x] **Fase 7: Extra: análise de URL**: função serverless que busca o HTML e extrai o texto
       visível; trata URL inválida, timeout, página vazia; analisa só os 2048 primeiros
       caracteres e avisa o usuário; bloqueia endereços internos (SSRF) e revalida redirecionamentos.
-- [ ] **Fase 8: Deploy**: publicar na Vercel/Netlify e testar de ponta a ponta.
+- [x] **Fase 8: Deploy**: publicado na Vercel em https://word-frequency-liard.vercel.app.
+      Testado em produção: página carrega e `/api/fetch-url` bloqueia endereços internos e extrai texto de páginas públicas.
 
 ## Convenções de código
 
