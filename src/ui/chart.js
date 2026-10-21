@@ -18,7 +18,7 @@ export function renderChart(canvas, rows) {
         {
           label: 'Occurrences',
           data: topRows.map(({ count }) => count),
-          backgroundColor: '#2357d6',
+          backgroundColor: '#6b1e1e',
         },
       ],
     },
