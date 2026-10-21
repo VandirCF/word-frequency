@@ -38,6 +38,8 @@ function showEmptyResults(message) {
   exportButton.disabled = true;
 }
 
+updateCounter(charCounter, textInput.value.length, textInput.maxLength);
+
 textInput.addEventListener('input', () => {
   updateCounter(charCounter, textInput.value.length, textInput.maxLength);
   clearError(errorMessage);
