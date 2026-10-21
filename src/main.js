@@ -27,6 +27,7 @@ const urlError = document.querySelector('#url-error');
 const urlNotice = document.querySelector('#url-notice');
 
 let currentRows = [];
+let urlController = null;
 
 function showEmptyResults(message) {
   currentRows = [];
@@ -89,6 +90,7 @@ clearButton.addEventListener('click', () => {
   urlInput.value = '';
   clearError(urlError);
   urlNotice.hidden = true;
+  urlController?.abort();
   showEmptyResults('No analysis yet.');
   textInput.focus();
 });
@@ -113,13 +115,18 @@ urlForm.addEventListener('submit', async (event) => {
     return;
   }
 
+  urlController?.abort();
+
+  const controller = new AbortController();
+
+  urlController = controller;
   clearError(urlError);
   urlNotice.hidden = true;
   urlButton.disabled = true;
   urlButton.textContent = 'Loading...';
 
   try {
-    const text = await fetchPageText(url);
+    const text = await fetchPageText(url, controller.signal);
     const limit = textInput.maxLength;
 
     textInput.value = truncateText(text, limit);
@@ -133,9 +140,14 @@ urlForm.addEventListener('submit', async (event) => {
 
     form.requestSubmit();
   } catch (error) {
-    showError(urlError, error.message);
+    if (error.name !== 'AbortError') {
+      showError(urlError, error.message);
+    }
   } finally {
-    urlButton.disabled = false;
-    urlButton.textContent = 'Analyze URL';
+    if (urlController === controller) {
+      urlController = null;
+      urlButton.disabled = false;
+      urlButton.textContent = 'Analyze URL';
+    }
   }
 });

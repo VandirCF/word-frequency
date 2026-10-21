@@ -1,5 +1,5 @@
-export async function fetchPageText(url) {
-  const response = await fetch(`/api/fetch-url?url=${encodeURIComponent(url)}`);
+export async function fetchPageText(url, signal) {
+  const response = await fetch(`/api/fetch-url?url=${encodeURIComponent(url)}`, { signal });
   let body;
 
   try {
