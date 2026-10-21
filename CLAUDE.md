@@ -33,7 +33,7 @@ Especificação completa: [App.md](App.md). As regras de contagem e os textos de
 | Testes    | Vitest                                                    |
 | Gráfico   | Chart.js                                                  |
 | URL       | Função serverless em `api/` (Vercel) + middleware no Vite |
-| Deploy    | Vercel ou Netlify                                         |
+| Deploy    | Vercel, conectada ao GitHub: https://github.com/VandirCF/word-frequency |
 
 ## Estrutura de pastas
 
